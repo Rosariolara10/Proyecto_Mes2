@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Predicción de Bienestar Digital</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f0f4f8;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        }
+
+        h1 {
+            text-align: center;
+            color: #2563eb;
+            margin-bottom: 40px;
+        }
+
+        form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px 40px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 10px;
+            font-size: 16px;
+            background-color: #f9fafb;
+            box-sizing: border-box;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        input[type="submit"] {
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            padding: 14px;
+            font-size: 17px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            width: 100%;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #1d4ed8;
+        }
+
+        .resultado {
+            grid-column: 1 / -1;
+            margin-top: 30px;
+            text-align: center;
+            background-color: #dbeafe;
+            padding: 25px;
+            border-radius: 12px;
+            color: #1e40af;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        @media (max-width: 700px) {
+            form {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Bienestar Digital - Modelo de Regresión</h1>
+
+        <form method="POST">
+            <div>
+                <label for="num_app_switches">Cambios de app (num_app_switches)</label>
+                <input type="number" step="any" name="num_app_switches" required
+                    value="{{ request.form.get('num_app_switches', '') }}" />
+            </div>
+
+            <div>
+                <label for="sleep_hours">Horas de sueño (sleep_hours)</label>
+                <input type="number" step="any" name="sleep_hours" required
+                    value="{{ request.form.get('sleep_hours', '') }}" />
+            </div>
+
+            <div>
+                <label for="notification_count">Notificaciones (notification_count)</label>
+                <input type="number" step="any" name="notification_count" required
+                    value="{{ request.form.get('notification_count', '') }}" />
+            </div>
+
+            <div>
+                <label for="social_media_time_min">Minutos en redes sociales (social_media_time_min)</label>
+                <input type="number" step="any" name="social_media_time_min" required
+                    value="{{ request.form.get('social_media_time_min', '') }}" />
+            </div>
+
+            <div>
+                <label for="focus_score">Nivel de concentración (focus_score)</label>
+                <input type="number" step="any" name="focus_score" required
+                    value="{{ request.form.get('focus_score', '') }}" />
+            </div>
+
+            <div>
+                <label for="anxiety_level">Nivel de ansiedad (anxiety_level)</label>
+                <input type="number" step="any" name="anxiety_level" required
+                    value="{{ request.form.get('anxiety_level', '') }}" />
+            </div>
+
+            <div class="full-width">
+                <input type="submit" value="Predecir Bienestar" />
+            </div>
+
+            {% if resultado is not none %}
+            <div class="resultado">
+                ✅ Predicción de bienestar digital: {{ resultado }}
+            </div>
+            {% endif %}
+        </form>
+    </div>
+</body>
+
+</html>
